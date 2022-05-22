@@ -4,6 +4,7 @@ import time
 import pandas as pd
 import sys
 
+
 args = sys.argv[1]
 # producer 
 print(args)
@@ -12,7 +13,7 @@ producer = KafkaProducer(bootstrap_servers=['localhost:29092'],
                          value_serializer=lambda x: json.dumps(x).encode('utf-8'))
 
 
-df = pd.read_csv(r'{args}',sep=',',header=0,encoding='utf-8')
+df = pd.read_csv(f'{args}',sep=',',header=0,encoding='utf-8')
 df.head(2)
 
 # filter for 2008 and 2009

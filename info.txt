@@ -1,4 +1,7 @@
  python .\task_2_consumer.py --host='localhost' --username='root' --password='root' --database='kafka_stream' --table 'data'
 
 
-  python .\task_3.py --host='localhost' --username='root' --password='root' --database='kafka_stream' --table 'test1' --file1 'C:/Users/saiam/OneDrive/Desktop/rejected_2007_to_2018q4.csv'
+python .\task_3.py --host='localhost' --username='root' --password='root' --database='kafka_stream' --table 'test1' --file1 'C:/Users/saiam/OneDrive/Desktop/rejected_2007_to_2018q4.csv'
+
+
+docker build -t test1:001  .
