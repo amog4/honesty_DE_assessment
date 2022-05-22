@@ -5,3 +5,6 @@ python .\task_3.py --host='localhost' --username='root' --password='root' --data
 
 
 docker build -t test1:001  .
+
+docker-compose up
+docker-compose down
