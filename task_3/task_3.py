@@ -3,6 +3,7 @@ import pandas as pd
 import argparse
 import math
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 def main(args):
@@ -12,6 +13,7 @@ def main(args):
     database = args.database
     table = args.table
     file1 = args.file1
+    add_column = args.addcolumn
 
     engine = create_engine(f"postgresql://{host}:5432/{database}?user={username}&password={password}")
     conn  = engine.connect()
@@ -23,13 +25,19 @@ def main(args):
     # filter for 2007
 
     df['year'] = pd.DatetimeIndex(df['Application Date']).year
-    df = df[df['year'] == 2007]
+    df = df[df['year'] == 2008]
 
     # calculate simple moving average for 50 days
 
     df['MA50'] = df['Risk_Score'].rolling(50,min_periods=1).mean().round(2)
+    df['ma100'] = df['Risk_Score'].rolling(100,min_periods=1).mean().round(2)
 
-    df.head(0).to_sql(name = table,con = conn,if_exists='replace')
+    if add_column:
+        col = f"""ALTER TABLE {table} ADD {add_column};"""
+        print(col)
+
+        conn.execute(col)
+       
 
     start = 0
     end = 10000
@@ -53,10 +61,13 @@ if __name__ == '__main__':
     parser.add_argument("--database",type=str, required=True, help="DB host")
     parser.add_argument("--table",type=str, required=True, help="DB host")
     parser.add_argument("--file1",type=str, required=True, help="file1")
+    parser.add_argument("--addcolumn",nargs = '?', type=str, const=False, help="add_column")
     args = parser.parse_args()
 
     print(args)
     main(args)
+
+
 
 
 
