@@ -1,0 +1,1 @@
+ python .\task_2_consumer.py --host='localhost' --username='root' --password='root' --database='kafka_stream' --table 'data'
