@@ -1,7 +1,11 @@
-FROM python:3.7
+FROM python:3.8
 
 
-RUN pip install pandas kafka kafka-python json sqlalchemy psycopg2 flask-sqlalchemy 
+RUN pip install pandas d
+RUN pip install kafka-python
+RUN pip install sqlalchemy
+RUN pip install psycopg2
+RUN pip install flask-sqlalchemy 
 
 
 WORKDIR /app
